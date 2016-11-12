@@ -84,7 +84,7 @@ var LoginView = React.createClass({
         if (responseData.token) {
           this.props.setCredentials(this.state.username, this.state.password, responseData.id);
           this.props.navigator.push({
-            id: 'Main',
+            id: 'Register',
           });
         } else {
           this.setState({errors: responseData.errors})
@@ -104,7 +104,7 @@ var LoginView = React.createClass({
         if (responseData.token) {
           this.props.setCredentials(this.state.username, this.state.password, responseData.id);
           this.props.navigator.push({
-            id: 'Main',
+            id: 'Register',
           });
         } else {
           this.setState({errors: responseData.errors});

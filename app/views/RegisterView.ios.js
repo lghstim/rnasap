@@ -18,24 +18,21 @@ var SocialRegister = require('./components/SocialRegister.ios.js');
 var Button = require('../global/Button.ios.js');
 var api = require('../global/api.js');
 
-var MainView = React.createClass({
+var RegisterView = React.createClass({
   componentWillMount: function() {
   },
 
   getInitialState: function() {
     return {
-      facebook: '',
-      spotify: '',
-      snapchat: '',
-      twitter: '',
-      linkedin: '',
-      instagram: '',
+      name: '',
+      email: '',
+      phone: '',
       loading: false,
     };
   },
 
   render: function() {
-    var button = <Button buttonText='Submit' onPress={this._onSubmit} style={{tintColor: '#FCEE9D'}}/>;
+    var button = <Button buttonText='NEXT' onPress={this._onSubmit} style={{tintColor: '#FCEE9D'}}/>;
     if (this.state.loading) {
       button =  <ActivityIndicator
         animating={true}
@@ -48,16 +45,14 @@ var MainView = React.createClass({
       <Image source={require('../images/background.png')} style={styles.image}>
 
       <View style={{flex: 0.1, justifyContent: 'center', alignItems: 'center', width: 800}}>
-        <Text style={{fontFamily: "Avenir-Book", fontSize: 35, marginTop: 25}}> Connect </Text>
+        <Text style={{fontFamily: "Avenir-Book", fontSize: 35, marginTop: 25}}> Register </Text>
       </View>
       <View style={{flex: 0.9, width: 375}} contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}>
-      <View style={{flex: 1, marginLeft: 15, marginTop: 30, width: 350, alignItems: 'center', justifyContent: 'center'}}>
-      <SocialRegister image={require("../images/facebook-i.png")} onChange={(facebook) => this.setState({facebook})}/>
-      <SocialRegister image={require("../images/venmo-i.png")} onChange={(spotify) => this.setState({spotify})}/>
-      <SocialRegister image={require("../images/snapchat-i.png")} onChange={(snapchat) => this.setState({snapchat})}/>
-      <SocialRegister image={require("../images/twitter-i.png")} onChange={(twitter) => this.setState({twitter})}/>
-      <SocialRegister image={require("../images/linkedin-i.png")} onChange={(linkedin) => this.setState({linkedin})}/>
-      <SocialRegister image={require("../images/instagram-i.png")} onChange={(instagram) => this.setState({instagram})}/>
+      <View style={{height: 250, marginLeft: 15, marginTop: 30, width: 350, alignItems: 'center', justifyContent: 'center'}}>
+      <SocialRegister image={require("../images/profile.png")} onChange={(name) => this.setState({name})} placeholder="Name"/>
+      <SocialRegister image={require("../images/mail.png")} onChange={(email) => this.setState({email})} placeholder="Email"/>
+      <SocialRegister image={require("../images/phone.png")} onChange={(phone) => this.setState({phone})} placeholder="Phone Number"/>
+
       </View>
       <View style={{width: 375, justifyContent: 'center', alignItems: 'center'}}>
     {button}
@@ -72,17 +67,14 @@ var MainView = React.createClass({
   _onSubmit: function() {
     this.setState({loading: true});
     api.post('api/connect/' + this.props.user_id + '/', {
-      facebook: this.state.facebook,
-      spotify: this.state.spotify,
-      snapchat: this.state.snapchat,
-      twitter: this.state.twitter,
-      linkedin: this.state.linkedin,
-      instagram: this.state.instagram,
+      name: this.state.name,
+      email: this.state.email,
+      phone: this.state.phone
     }, this.props.username, this.props.password)
       .then((responseData) => {
         if (responseData.id) {
           this.props.navigator.push({
-            id: 'QR',
+            id: 'Main',
           });
         } else {
           this.setState({errors: responseData.errors});
@@ -152,4 +144,4 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = MainView;
+module.exports = RegisterView;

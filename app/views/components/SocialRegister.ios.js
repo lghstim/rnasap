@@ -26,7 +26,7 @@ var SocialRegister = React.createClass({
         <TextInput
           style={styles.input}
           autoCapitalize="none"
-          placeholder="Username"
+          placeholder={this.props.placeholder ? this.props.placeholder : 'Username'}
           onChangeText={this.props.onChange}
         />
       </View>

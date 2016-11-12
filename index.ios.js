@@ -13,6 +13,8 @@ var {
 var LoginView = require('./app/views/LoginView.ios.js');
 var MainView = require('./app/views/MainView.ios.js');
 var LoadingView = require('./app/views/LoadingView.ios.js');
+var RegisterView = require('./app/views/RegisterView.ios.js');
+
 var QRView = require('./app/views/QRView.ios.js');
 var api = require('./app/global/api.js');
 var storage = require('./app/global/Storage.js');
@@ -30,6 +32,11 @@ var RNAsap = React.createClass({
     if (route.id === 'Login') {
       return (
         <LoginView navigator={navigator} setCredentials={this._setCredentials} />
+      );
+    }
+    if (route.id === 'Register') {
+      return (
+        <RegisterView navigator={navigator} username={this.state.username} password={this.state.password} user_id={this.state.user_id}/>
       );
     }
     if (route.id === 'Main') {
