@@ -28,12 +28,10 @@ var LoginView = React.createClass({
 
     return (
         <View style={styles.container}>
-        <View style={{height: 200}}/>
-        <QRCode
-                  value={'https://asapserver.herokuapp.com/api/web/' + this.props.user_id + '/'}
-                  size={200}
-                  bgColor='black'
-                  fgColor='white'/>
+        <Image source={require('../images/asapit.png')} style={{height: 675, width: 375, position: 'absolute'}} />
+        <View style={{flex: 1, justifyContent: 'center'}}>
+        <Image source={{uri: 'https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=https://asapserver.herokuapp.com/api/web/' + this.props.user_id +'/'}} style={{height: 200, width: 200}}/>
+        </View>
         </View>
     );
   },
@@ -43,7 +41,6 @@ var LoginView = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   inputContainer: {
@@ -77,6 +74,8 @@ var styles = StyleSheet.create({
   },
   image: {
     flex: 1,
+    width: 375,
+    height: 1200,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',

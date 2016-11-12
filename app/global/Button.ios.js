@@ -19,7 +19,7 @@ var Button = React.createClass({
       <TouchableOpacity onPress={this.props.onPress}>
         <Image
           source={require('image!white')}
-          style={[styles.button, darkStyle]}>
+          style={[styles.button, this.props.style]}>
           <Text style={styles.buttonText}>{this.props.buttonText}</Text>
         </Image>
       </TouchableOpacity>
@@ -37,11 +37,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 3,
   },
-  dark: {
-    tintColor: 'rgba(128, 128, 128, 0.1)'
-  },
   buttonText: {
-    color: '#007AFF',
+    color: 'grey',
     backgroundColor: 'transparent',
     fontWeight: 'bold',
   },

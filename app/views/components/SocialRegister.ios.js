@@ -16,7 +16,10 @@ var SocialRegister = React.createClass({
   render: function() {
     var darkStyle = this.props.dark ? styles.dark : null;
     return (
+      <View style={styles.mainContainer}>
+      <View style={{height: 10}}/>
       <View style={styles.container}>
+      <View style={{width: 10}} />
       <Image source={this.props.image} style={styles.image}>
      </Image>
 
@@ -27,11 +30,20 @@ var SocialRegister = React.createClass({
           onChangeText={this.props.onChange}
         />
       </View>
+      <View style={{height: 10}}/>
+      </View>
     );
   }
 });
 
 var styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    marginBottom: 20,
+    width: 350,
+    borderRadius: 7,
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -60,13 +72,14 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
+    borderWidth: 2,
+    borderColor: 'grey',
     flex: 1,
     backgroundColor:'rgba(256,256,256,0.8)',
     height: 40,
     marginLeft: 15,
     marginRight: 10,
-    borderRadius: 4,
-    marginBottom: 15,
+    borderRadius: 5,
     padding: 4,
   },
 });

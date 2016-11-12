@@ -12,6 +12,7 @@ var {
   TouchableOpacity,
   TabBarIOS,
   ScrollView,
+  ActivityIndicator,
 } = ReactNative;
 var SocialRegister = require('./components/SocialRegister.ios.js');
 var Button = require('../global/Button.ios.js');
@@ -28,36 +29,48 @@ var MainView = React.createClass({
       snapchat: '',
       twitter: '',
       linkedin: '',
-      instagram: ''
+      instagram: '',
+      loading: false,
     };
   },
 
   render: function() {
+    var button = <Button buttonText='Submit' onPress={this._onSubmit} />;
+    if (this.state.loading) {
+      button =  <ActivityIndicator
+        animating={true}
+        style={{height: 80}}
+        size="large"
+      />;
+    }
     return (
       <View style={styles.container}>
-      <View style={{backgroundColor: '#AAAAAA', flex: 0.15, justifyContent: 'center', alignItems: 'center', width: 800}}>
-        <Text> Let's Get Social </Text>
+      <Image source={require('../images/background.png')} style={styles.image}>
+
+      <View style={{flex: 0.1, justifyContent: 'center', alignItems: 'center', width: 800}}>
+        <Text style={{fontFamily: "Avenir-Book", fontSize: 35, marginTop: 25}}> Connect </Text>
       </View>
-      <View style={{flex: 0.85, width: 375}} contentContainerStyle={{alignItems: 'center'}}>
-      <Image source={require('../images/background.jpg')} style={styles.image}>
-      <View style={{flex: 1, marginTop: 30, width: 350}}>
-      <SocialRegister image={require("../images/facebook.png")} onChange={(facebook) => this.setState({facebook})}/>
-      <SocialRegister image={require("../images/spotify.jpg")} onChange={(spotify) => this.setState({spotify})}/>
-      <SocialRegister image={require("../images/snapchat.jpg")} onChange={(snapchat) => this.setState({snapchat})}/>
-      <SocialRegister image={require("../images/twitter.png")} onChange={(twitter) => this.setState({twitter})}/>
-      <SocialRegister image={require("../images/linkedin.png")} onChange={(linkedin) => this.setState({linkedin})}/>
-      <SocialRegister image={require("../images/instagram.png")} onChange={(instagram) => this.setState({instagram})}/>
+      <View style={{flex: 0.9, width: 375}} contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1, marginLeft: 15, marginTop: 30, width: 350, alignItems: 'center', justifyContent: 'center'}}>
+      <SocialRegister image={require("../images/facebook-i.png")} onChange={(facebook) => this.setState({facebook})}/>
+      <SocialRegister image={require("../images/venmo-i.png")} onChange={(spotify) => this.setState({spotify})}/>
+      <SocialRegister image={require("../images/snapchat-i.png")} onChange={(snapchat) => this.setState({snapchat})}/>
+      <SocialRegister image={require("../images/twitter-i.png")} onChange={(twitter) => this.setState({twitter})}/>
+      <SocialRegister image={require("../images/linkedin-i.png")} onChange={(linkedin) => this.setState({linkedin})}/>
+      <SocialRegister image={require("../images/instagram-i.png")} onChange={(instagram) => this.setState({instagram})}/>
       </View>
-      <View style={{width: 100}}>
-      <Button buttonText='Submit' onPress={this._onSubmit} />
+      <View style={{width: 375, justifyContent: 'center', alignItems: 'center'}}>
+    {button}
+    </View>
       </View>
       </Image>
-      </View>
+
       </View>
     );
   },
 
   _onSubmit: function() {
+    this.setState({loading: true});
     api.post('api/connect/' + this.props.user_id + '/', {
       facebook: this.state.facebook,
       spotify: this.state.spotify,
@@ -67,7 +80,6 @@ var MainView = React.createClass({
       instagram: this.state.instagram,
     }, this.props.username, this.props.password)
       .then((responseData) => {
-        console.log(responseData);
         if (responseData.id) {
           this.props.navigator.push({
             id: 'QR',
@@ -75,6 +87,7 @@ var MainView = React.createClass({
         } else {
           this.setState({errors: responseData.errors});
         }
+        this.setState({loading: false});
       })
       .done();
   }

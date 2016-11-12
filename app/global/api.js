@@ -6,11 +6,8 @@ var post = async function(endpoint, body, username='', password='') {
   var headers = {'Content-Type': 'application/json'};
   if (username !== '') {
     var text = username + ':' + password;
-    console.log(text);
     var bytes = utf8.encode(text);
-    console.log(bytes);
     var encoded = base64.encode(text);
-    console.log(encoded);
     headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Basic ' + encoded,

@@ -20,8 +20,6 @@ var storage = require('./app/global/Storage.js');
 var RNAsap = React.createClass({
   getInitialState: function() {
     return {
-      token: null,
-      spinner: false,
       username: '',
       password: '',
       user_id: 0,
@@ -29,11 +27,6 @@ var RNAsap = React.createClass({
   },
 
   renderScene: function(route, navigator) {
-    if (this.state.spinner) {
-      return (
-        <LoadingView />
-      );
-    }
     if (route.id === 'Login') {
       return (
         <LoginView navigator={navigator} setCredentials={this._setCredentials} />
